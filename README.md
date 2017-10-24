@@ -12,3 +12,9 @@ To build you'll need:
 
 1. Node Package Manager
 1. Visual Studio Code
+
+Open up your console and run:
+
+````bash
+npm install
+````
