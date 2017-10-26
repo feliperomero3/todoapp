@@ -94,9 +94,47 @@ $(function () {
         },
 
         // Re-render the titles of the todo item.
-        
-    });
+        render: function() {
+            this.$el.html(this.template(this.model.toJSON()));
+            this.$el.toggleClass('done', this.model.get('done'));
+            this.input = this.$('.edit');
+            return this;
+        },
 
+        // Toggle de "done" state of the model.
+        toggleDone: function() {
+            this.model.toggle();
+        },
+
+        // Switch this view into "editing" mode, displaying the input field.
+        edit: function() {
+            this.$el.addClass('editing');
+            this.input.focus();
+        },
+
+        // Close the "editing" mode, saving changes to the todo.
+        close: function() {
+            var value = this.input.val();
+            if (!value) {
+                this.clear();
+            } else {
+                this.model.save({title: value});
+                this.$el.removeClass('editing');                
+            }
+        },
+
+        // If you hit Enter, we're through editing this item.
+        updateOnEnter: function() {
+            if (e.keycode == 13) {
+                this.close();
+            }
+        },
+
+        // Remove the item, destroy the model.
+        clear: function() {
+            this.model.destroy();
+        }
+    });
 
     // The Application
     // ---------------
