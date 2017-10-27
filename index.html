@@ -1,14 +1,60 @@
 <!DOCTYPE html>
-<html lang="en" data-framework="backbonejs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+    <link rel="stylesheet" href="todos.css">
     <title>Backbone Example Web App</title>
 </head>
 <body>
-    <p>hello world</p>
+    <div id="todoapp">
+        <header>
+            <h1>Todos</h1>
+            <input id="new-todo" type="text" placeholder="What needs to be done?">
+        </header>
+
+        <section id="main">
+            <input type="checkbox" id="toggle-all">
+            <label for="toggle-all">Mark all as complete</label>
+            <ul id="todo-list"></ul>
+        </section>
+
+        <footer>
+            <a href="" id="clear-completed">Clear completed</a>
+            <div id="todo-count"></div>
+        </footer>
+    </div>
+
+    <div id="instructions">
+        Double-click to edit a todo.
+    </div>
+
+    <div id="credits">
+        Created by
+        <br>
+        <a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a>.
+    </div>
+
+    <!-- Templates -->
+
+    <script id="item-template" type="text/template">
+        <div class="view">
+            <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+            <label><%= title %></label>
+            <a class="destroy"></a>
+        </div>
+        <input type="text" class="edit" value="<%- title %>" />
+    </script>
+
+    <script id="stats-template" type="text/template">
+        <% if (done) { %>
+            <a href="" id="clear-completed">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a>
+        <% } %>
+        <div class="todo-count">
+            <strong><%= remaining %></strong> <%= remaining == 1 ? 'item' : 'items' %> left
+        </div>
+    </script>
 
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="node_modules/underscore/underscore.js"></script>
